@@ -1,132 +1,32 @@
 <template>
   <div id="app">
-    <div class="container">
+    <b-container>
+      <comp-title />
 
-      <!-- TITLE : START -->
-      <div class="page-header">
-        <h1>Project 01 - ToDo List <small>VueJs</small></h1>
-        <hr class="my-4">
-      </div>
-      <!-- TITLE : END -->
+      <b-row>
+        <comp-control />
+        <comp-form />
+      </b-row>
 
+      <todo-list-table />
 
-      <div class="row">
-        <!-- CONTROL (SEARCH + SORT + ADD) : START -->
-        <div class="col-12 col-lg-6">
-          <div class="row">
-            <!-- SORT : START -->
-            <div class="col-12">
-              <div class="form-group">
-                <div class="dropdown">
-                  <b-dropdown id="dropdown-1" text="Sort by" class="">
-                    <b-dropdown-item>Name ASC</b-dropdown-item>
-                    <b-dropdown-item>Name DESC</b-dropdown-item>
-                    <b-dropdown-divider></b-dropdown-divider>
-                    <b-dropdown-item active>Level ASC</b-dropdown-item>
-                    <b-dropdown-item>Level DESC</b-dropdown-item>
-                  </b-dropdown>
-                  <span class="badge badge-success badge-medium">NAME - DESC</span>
-                </div>
-              </div>
-            </div>
-            <!-- SORT : END -->
-
-            <!-- SEARCH : START -->
-            <div class="col-12">
-              <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search for..." />
-                <span class="input-group-append">
-                  <button class="btn btn-info" type="button">Clear!</button>
-                </span>
-              </div>
-            </div>
-            <!-- SEARCH : END -->
-          </div>
-        </div>
-        <!-- CONTROL (SEARCH + SORT + ADD) : END -->
-
-        <!-- FORM : START -->
-        <div class="col-12 col-lg-6">
-          <!-- ADD : START -->
-          <div class="form-group add-task">
-            <button type="button" class="btn btn-info btn-block">Add Task</button>
-          </div>
-          <!-- ADD : END -->
-
-          <form action="" method="POST" class="form-inline justify-content-between">
-            <div class="form-group">
-              <label class="sr-only" for="">label</label>
-              <input type="text" class="form-control" placeholder="Task Name" />
-            </div>
-            <div class="form-group">
-              <label class="sr-only" for="">label</label>
-              <select name="ds" class="form-control" required="required">
-                <option value="0">Small</option>
-                <option value="1">Medium</option>
-                <option value="2">High</option>
-              </select>
-            </div>
-
-            <button type="button" class="btn btn-primary">Submit</button>
-            <button type="button" class="btn btn-secondary">Cancel</button>
-          </form>
-        </div>
-        <!-- FORM : END -->
-      </div>
-
-      <!-- LIST : START -->
-
-      <div class="panel panel-success">
-        <div class="panel-heading">List Task</div>
-        <table class="table table-hover ">
-          <thead>
-            <tr>
-              <th style="width: 10%" class="text-center">#</th>
-              <th>Task</th>
-              <th style="width: 20%" class="text-center">Level</th>
-              <th style="width: 160px">Action</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr>
-              <td class="text-center">1</td>
-              <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis ea c</td>
-              <td class="text-center"><span class="badge badge-danger">High</span></td>
-              <td>
-                <button type="button" class="btn btn-warning">Edit</button>
-                <button type="button" class="btn btn-danger">Delete</button>
-              </td>
-            </tr>
-            <tr>
-              <td class="text-center">2</td>
-              <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis ea c</td>
-              <td class="text-center"><span class="badge badge-secondary">Small</span></td>
-              <td>
-                <button type="button" class="btn btn-warning">Edit</button>
-                <button type="button" class="btn btn-danger">Delete</button>
-              </td>
-            </tr>
-            <tr>
-              <td class="text-center">3</td>
-              <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis ea c</td>
-              <td class="text-center"><span class="badge badge-info">Medium</span></td>
-              <td>
-                <button type="button" class="btn btn-warning">Edit</button>
-                <button type="button" class="btn btn-danger">Delete</button>
-              </td>
-            </tr>
-          </tbody>
-
-        </table>
-      </div>
-    </div>
+    </b-container>
   </div>
 </template>
 
 <script>
+import TodoListTable from './components/TodoListTable.vue'
+import CompTitle from './components/CompTitle.vue'
+import CompControl from './components/CompControl.vue'
+import CompForm from './components/CompForm.vue'
 export default {
   name: 'app',
+  components: {
+    TodoListTable,
+    CompTitle,
+    CompControl,
+    CompForm
+  },
   data() {
     return {
       msg: 'Welcome to Your Vue.js App'
