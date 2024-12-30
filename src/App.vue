@@ -4,11 +4,11 @@
       <comp-title />
 
       <b-row>
-        <comp-control />
-        <comp-form />
+        <comp-control v-bind:strSearch="strSearch" v-on:handleStrSearch="handleStrSearch" />
+        <comp-form v-bind:isShowForm="isShowForm" v-on:handleShowForm="handleShowForm" />
       </b-row>
 
-      <todo-list-table />
+      <todo-list-table v-bind:listTask="listTaskFiltered" />
 
     </b-container>
   </div>
@@ -19,6 +19,9 @@ import TodoListTable from './components/TodoListTable.vue'
 import CompTitle from './components/CompTitle.vue'
 import CompControl from './components/CompControl.vue'
 import CompForm from './components/CompForm.vue'
+
+import listTask from './mockdatas/listTask'
+
 export default {
   name: 'app',
   components: {
@@ -29,7 +32,22 @@ export default {
   },
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      listTask,
+      isShowForm: false,
+      strSearch: ''
+    }
+  },
+  methods: {
+    handleShowForm() {
+      this.isShowForm = !this.isShowForm
+    },
+    handleStrSearch(data) {
+      this.strSearch = data;
+    }
+  },
+  computed: {
+    listTaskFiltered() {
+      return this.listTask.filter(task => task.name.toLowerCase().includes(this.strSearch.toLowerCase()));
     }
   }
 }

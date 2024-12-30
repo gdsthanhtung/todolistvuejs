@@ -2,7 +2,7 @@
   <b-col cols="12" lg="6">
     <b-row>
       <control-sort />
-      <control-search />
+      <control-search v-bind:strSearch="strSearch" v-on:handleStrSearch="handleStrSearch" />
     </b-row>
 
   </b-col>
@@ -18,9 +18,20 @@ export default {
     ControlSort,
     ControlSearch
   },
+  props: {
+    strSearch: {
+      type: String,
+      default: ''
+    }
+  },
   data() {
     return {
       //text: ''
+    }
+  },
+  methods: {
+    handleStrSearch(data) {
+      this.$emit('handleStrSearch', data);
     }
   }
 }
