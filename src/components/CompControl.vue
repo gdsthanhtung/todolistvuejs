@@ -1,8 +1,15 @@
 <template>
   <b-col cols="12" lg="6">
     <b-row>
-      <control-sort />
-      <control-search v-bind:strSearch="strSearch" v-on:handleStrSearch="handleStrSearch" />
+      <control-sort
+        v-bind:orderSort="orderSort"
+        v-on:handleOrderSort="handleOrderSort"
+      />
+
+      <control-search
+        v-bind:strSearch="strSearch"
+        v-on:handleStrSearch="handleStrSearch"
+      />
     </b-row>
 
   </b-col>
@@ -22,6 +29,15 @@ export default {
     strSearch: {
       type: String,
       default: ''
+    },
+    orderSort: {
+     type: Object,
+     default() {
+       return {
+         by: 'name',
+         dir: 'asc'
+       };
+     }
     }
   },
   data() {
@@ -32,6 +48,9 @@ export default {
   methods: {
     handleStrSearch(data) {
       this.$emit('handleStrSearch', data);
+    },
+    handleOrderSort(data) {
+      this.$emit('handleOrderSort', data);
     }
   }
 }

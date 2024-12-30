@@ -4,7 +4,9 @@
       <comp-title />
 
       <b-row>
-        <comp-control v-bind:strSearch="strSearch" v-on:handleStrSearch="handleStrSearch" />
+        <comp-control v-bind:strSearch="strSearch" v-on:handleStrSearch="handleStrSearch" v-bind:orderSort="orderSort"
+          v-on:handleOrderSort="handleOrderSort" />
+
         <comp-form v-bind:isShowForm="isShowForm" v-on:handleShowForm="handleShowForm" />
       </b-row>
 
@@ -34,7 +36,11 @@ export default {
     return {
       listTask,
       isShowForm: false,
-      strSearch: ''
+      strSearch: '',
+      orderSort: {
+        by: 'name',
+        dir: 'asc'
+      }
     }
   },
   methods: {
@@ -43,12 +49,25 @@ export default {
     },
     handleStrSearch(data) {
       this.strSearch = data;
+    },
+    handleOrderSort(data) {
+      this.orderSort = data;
     }
   },
   computed: {
     listTaskFiltered() {
-      return this.listTask.filter(task => task.name.toLowerCase().includes(this.strSearch.toLowerCase()));
+      let orderSort = this.orderSort;
+      return this.listTask.filter(task => task.name.toLowerCase().includes(this.strSearch.toLowerCase())).sort((a, b) => {
+        if (a[orderSort.by] < b[orderSort.by]) {
+          return orderSort.dir === 'asc' ? -1 : 1;
+        }
+        if (a[orderSort.by] > b[orderSort.by]) {
+          return orderSort.dir === 'asc' ? 1 : -1;
+        }
+        return 0;
+      });
     }
+
   }
 }
 </script>
