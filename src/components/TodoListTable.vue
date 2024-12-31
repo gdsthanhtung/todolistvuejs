@@ -16,7 +16,8 @@
         v-for="(task, index) in listTask"
         v-bind:key="task.id"
         v-bind:task="task"
-        v-bind:index="index+1" />
+        v-bind:index="index+1"
+        v-on:handleDelete="handleDelete" />
       </tbody>
     </table>
   </div>
@@ -33,6 +34,12 @@ export default {
     listTask: {
       type: Array,
       default: []
+    }
+  },
+  methods: {
+    handleDelete(id) {
+      console.log(id);
+      this.$emit('handleDelete', id);
     }
   },
   data() {

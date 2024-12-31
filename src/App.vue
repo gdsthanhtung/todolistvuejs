@@ -10,7 +10,10 @@
         <comp-form v-bind:isShowForm="isShowForm" v-on:handleShowForm="handleShowForm" />
       </b-row>
 
-      <todo-list-table v-bind:listTask="listTaskFiltered" />
+      <todo-list-table
+        v-bind:listTask="listTaskFiltered"
+        v-on:handleDelete="handleDelete"
+      />
 
     </b-container>
   </div>
@@ -52,6 +55,9 @@ export default {
     },
     handleOrderSort(data) {
       this.orderSort = data;
+    },
+    handleDelete(id) {
+      this.listTask = this.listTask.filter(task => task.id !== id);
     }
   },
   computed: {

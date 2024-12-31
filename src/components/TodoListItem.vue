@@ -5,7 +5,7 @@
     <td class="text-center"><span :class="['badge', level.class]">{{ level.text }}</span></td>
     <td>
       <button type="button" class="btn btn-warning">Edit</button>
-      <button type="button" class="btn btn-danger">Delete</button>
+      <button type="button" class="btn btn-danger" v-on:click="handleDelete(task.id)">Delete</button>
     </td>
   </tr>
 </template>
@@ -27,6 +27,11 @@ export default {
   data() {
     return {
       //text: 'List Task'
+    }
+  },
+  methods: {
+    handleDelete(id) {
+      this.$emit('handleDelete', id);
     }
   },
   computed: {
