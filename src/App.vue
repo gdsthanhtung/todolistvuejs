@@ -4,15 +4,25 @@
       <comp-title />
 
       <b-row>
-        <comp-control v-bind:strSearch="strSearch" v-on:handleStrSearch="handleStrSearch" v-bind:orderSort="orderSort"
-          v-on:handleOrderSort="handleOrderSort" />
+        <comp-control
+          v-bind:strSearch="strSearch"
+          v-on:handleStrSearch="handleStrSearch"
+          v-bind:orderSort="orderSort"
+          v-on:handleOrderSort="handleOrderSort"
+        />
 
-        <comp-form v-bind:isShowForm="isShowForm" v-on:handleShowForm="handleShowForm" />
+        <comp-form
+          v-bind:isShowForm="isShowForm"
+          v-on:handleShowForm="handleShowForm"
+          v-on:handleAddTask="handleAddTask"
+          v-bind:taskSelected="taskSelected"
+          v-on:handleUpdateTask="handleUpdateTask"
+        />
       </b-row>
 
       <todo-list-table
         v-bind:listTask="listTaskFiltered"
-        v-on:handleDelete="handleDelete"
+        v-on:handleAction="handleAction"
       />
 
     </b-container>
@@ -43,12 +53,16 @@ export default {
       orderSort: {
         by: 'name',
         dir: 'asc'
-      }
+      },
+      taskSelected: null
     }
   },
   methods: {
     handleShowForm() {
-      this.isShowForm = !this.isShowForm
+      if (!this.isShowForm) {
+        this.resetTaskSelected();
+      }
+      this.isShowForm = !this.isShowForm;
     },
     handleStrSearch(data) {
       this.strSearch = data;
@@ -56,8 +70,34 @@ export default {
     handleOrderSort(data) {
       this.orderSort = data;
     },
-    handleDelete(id) {
+    handleAddTask(newTask) {
+      this.listTask.push(newTask);
+    },
+    handleUpdateTask(newTask) {
+      this.listTask = this.listTask.map(task => {
+        if (task.id === newTask.id) {
+          return newTask;
+        }
+        return task;
+      });
+    },
+    handleAction({ action, data }) {
+      if (action === 'delete') {
+        this.handleDeleteTask(data.id);
+      }
+      if (action === 'edit') {
+        this.handleEditTask(data);
+      }
+    },
+    handleDeleteTask(id) {
       this.listTask = this.listTask.filter(task => task.id !== id);
+    },
+    handleEditTask(task) {
+      this.isShowForm = true;
+      this.taskSelected = task;
+    },
+    resetTaskSelected() {
+      this.taskSelected = null;
     }
   },
   computed: {

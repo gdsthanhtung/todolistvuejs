@@ -17,7 +17,7 @@
         v-bind:key="task.id"
         v-bind:task="task"
         v-bind:index="index+1"
-        v-on:handleDelete="handleDelete" />
+        v-on:handleAction="handleAction" />
       </tbody>
     </table>
   </div>
@@ -37,9 +37,8 @@ export default {
     }
   },
   methods: {
-    handleDelete(id) {
-      console.log(id);
-      this.$emit('handleDelete', id);
+    handleAction(data) {
+      this.$emit('handleAction', data);
     }
   },
   data() {
